@@ -45,5 +45,9 @@ git config --global user.name "Name"         : Set global username
 git config --global user.email "email"       : Set global email
 git config --list 
 
+What Are Merge Conflicts?
+A merge conflict happens in Git when two branches have changes in the same part of a file and Git doesn't know which version to keep. Git can't automatically decide which change is correct, so you have to resolve it manually.
+
+
 
 
