@@ -1,47 +1,106 @@
-DOCKER - 
-->isolated system where products can be run irrespective of the environment/machine
--> lightweight containers with all the dependencies to run a project
--> adv :
-docker is faster than vm
-portable
+🐳 What is Docker?
+Docker is a containerization platform that allows developers to package applications with all necessary dependencies into containers. These containers are lightweight, portable, and consistent across environments.
 
--> docker uses docker engines
--> apt install docker.io (installation in linux)
-->docker  images : like packets of data which can be run on any OS , when dockers are run these images are actaully run
-* build a docker image 
+🔍 Key Concepts:
+Term	Description
+Image	A read-only template with instructions to create a container (e.g., python, ubuntu)
+Container	A running instance of an image
+Dockerfile	Script containing instructions to build a Docker image
+Docker Hub	Public registry where Docker images are stored
+Volumes	Persistent storage for containers
+Networks	Isolated layer for communication between containers
 
-================================
-4 things - Docker,Container,Volumes,Networking
-What is Docker ? 
-# VM : mimics a physical machine
-# multiple vms can be run on a single machine
-* Docker container will make u feel s if ur using a VM 
-containers: if it fits into a container it ships
-ZDO = Zero Down 
+⚙️ Docker Architecture
+Docker Client: CLI tool (what you use)
 
-for example if there is a python application created by a developer and he sends it to Q/A along with the PYTHON and other dependencies required for the application to run.
-This can be carried till production
+Docker Daemon: Server-side engine
 
-to create a Container- first create an image
-from one image we can create any number of containers
-(for linux distributions only) as they interact with the kernel
-? can a dcoker image created in linux can be used in windows/mac 
-ans: WSL 
+Docker Registry: Where images live (Docker Hub, GitHub Packages, etc.)
 
-Docker is designed to work with linux
+📦 Common Docker Commands with Syntax
+Below are Docker commands you should know, organized by functionality.
 
-* containers are create from local images (can be pulled from remote)
-* client contacted the daemon
-* daemon pulls the required image from Docker HUb
-* to see stopped conatiners : docker ps -a
+🔹 1. Check Docker Installation
+bash
+Copy
+Edit
+docker --version
+docker info
+🔹 2. Run a Docker Container
+bash
+Copy
+Edit
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+✅ Example:
 
-as containers have no OS they are stopped when there are no pr processes running (?)
-stops running : when docker run ubuntu (?)
-doesnt stop when running : 
- docker run -it ubuntu bash
- docker run ubuntu ps -ef
- 
- -it : interactive and terminal access
- 
- port forwarding?
- 
+bash
+Copy
+Edit
+docker run hello-world
+docker run -it ubuntu bash
+Flags:
+
+-it: Interactive + TTY (for terminal access)
+
+--rm: Auto-remove container after exit
+
+-d: Detached mode (runs in background)
+
+-p: Port mapping (host:container)
+
+--name: Assign a name to container
+
+✅ Example with options:
+
+bash
+Copy
+Edit
+docker run -it --rm ubuntu
+docker run -d -p 8080:80 nginx
+🔹 3. List Running Containers
+bash
+Copy
+Edit
+docker ps          # active containers
+docker ps -a       # all containers (including stopped)
+🔹 4. Stop, Start, Restart Containers
+bash
+Copy
+Edit
+docker stop <container_id or name>
+docker start <container_id or name>
+docker restart <container_id or name>
+🔹 5. Remove Containers and Images
+bash
+Copy
+Edit
+docker rm <container_id>
+docker rmi <image_id>
+✅ Remove all stopped containers:
+
+bash
+Copy
+Edit
+docker container prune
+🔹 6. List Docker Images
+bash
+Copy
+Edit
+docker images
+🔹 7. Pull Images from Docker Hub
+bash
+Copy
+Edit
+docker pull <image_name>
+✅ Example:
+
+bash
+Copy
+Edit
+docker pull ubuntu
+docker pull nginx
+🔹 8. Execute Commands in Running Container
+bash
+Copy
+Edit
+docker exec -it <container_name> <command>
