@@ -1,0 +1,133 @@
+Linux Shell & Scripting Cheat Sheet
+
+
+---
+
+🔸 1. Basic Commands
+
+Command	Description	Example
+
+echo	Prints text to screen	echo "Hello"
+cat	Displays file content	cat file.txt
+read	Takes user input	read name
+chmod u+x	Makes script executable	chmod u+x myscript.sh
+./script.sh	Runs the script	./myscript.sh
+echo $?	Shows last command exit status	echo $?
+return	Returns value from a function	return 1
+
+
+
+---
+
+🔸 2. Vim Commands
+
+Command	Purpose
+
+i	Insert mode
+a	Append mode
+:w	Save file
+:q	Quit
+:wq	Save and quit
+
+
+
+---
+
+🔸 3. Text Processing
+
+Tool	Purpose	Example
+
+awk '{print $1}' file	Print first column (space-separated)	
+awk -F, '{print $1}' file	Print first column (comma-separated)	
+sed 's/old/new/g' file	Replace text	
+sed -i.backup 's/old/new/g' file	Replace text & create backup	
+
+
+
+---
+
+🔸 4. Redirections and Pipes
+
+Symbol	Description	Example
+
+>	Overwrite output file	echo "hi" > file.txt
+>>	Append to file	echo "more" >> file.txt
+<	Input from file	sort < names.txt
+`	`	Pipe output to another command
+<<<	Input string to command	grep foo <<< "foobar"
+<<EOF	Multiline input (HereDoc)	
+
+
+cat <<EOF
+Hello
+World
+EOF
+
+
+---
+
+🔸 5. Scripting Basics
+
+Syntax	Meaning	Example
+
+#!/bin/bash	Shebang – uses Bash shell	
+var=value	Assign variable (no spaces)	
+$var or ${var}	Access variable	
+$1, $2, $0	Positional args; $0 = script name	
+
+
+
+---
+
+🔸 6. Conditions & Loops
+
+✅ If-Else
+
+if [ "$age" -gt 18 ]; then
+  echo "Adult"
+elif [ "$age" -eq 18 ]; then
+  echo "Just 18"
+else
+  echo "Minor"
+fi
+
+✅ Case Statement
+
+case $day in
+  "Mon") echo "Start";;
+  "Fri") echo "End";;
+  *) echo "Weekday";;
+esac
+
+✅ For Loop
+
+for i in 1 2 3; do
+  echo "Number $i"
+done
+
+
+---
+
+🔸 7. Arrays
+
+Syntax	Description
+
+arr=(a b c)	Declare array
+${arr[0]}	First element
+${arr[@]}	All elements
+
+
+
+---
+
+🔸 8. Functions
+
+myfunc() {
+  local name=$1
+  echo "Hello $name"
+  return 0
+}
+myfunc "Samit"
+
+
+---
