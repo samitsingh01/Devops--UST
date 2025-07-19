@@ -6,6 +6,6 @@ if [ ${1,,} = samit ]; then
 elif [ ${1,,} = help ]; then
 	echo "enter your name duh!"
 else
-	echo "wrong name"
+	echo "you are unknown"
 fi
 
