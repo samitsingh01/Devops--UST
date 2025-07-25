@@ -1,0 +1,70 @@
+What is a Kubernetes Pod?
+➤ Definition
+A Pod is the smallest and simplest deployable unit in Kubernetes. It represents a single instance of a running process in your cluster.
+
+A Pod can contain:
+
+One container (most common case), or
+
+Multiple tightly coupled containers (sharing storage/network).
+
+➤ Why Pods?
+Containers can’t be managed directly in Kubernetes; they are wrapped inside Pods.
+
+A Pod provides a running environment with:
+
+Shared network IP and port space
+
+Shared storage volumes
+
+Shared lifecycle (created, scheduled, and terminated together)
+
+Pod Components
+
+Component	Description
+Containers	One or more Docker containers running inside the Pod
+Volumes	Shared storage between containers in a Pod
+Networking	All containers share the same IP and port namespace
+Labels	Key-value pairs to identify and manage the Pod
+Annotations	Metadata for tools and services
+
+📄 Example Pod YAML
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+Pod Lifecycle
+
+Phase	Description
+Pending	Pod accepted but not yet running
+Running	Pod has been scheduled and containers started
+Succeeded	All containers exited successfully
+Failed	One or more containers failed
+Unknown	Pod state can’t be determined
+
+Key Points
+Pods are ephemeral (temporary): They can die and be recreated.
+
+For high availability, use Deployments, ReplicaSets, or StatefulSets to manage Pods.
+
+Pods are best for single application units. Don’t put unrelated containers in the same Pod.
+
+🔧 Useful Commands
+Command	Description
+kubectl get pods	List all Pods
+kubectl describe pod <pod-name>	Show detailed Pod info
+kubectl logs <pod-name>	View logs of a Pod's container
+kubectl delete pod <pod-name>	Delete a Pod
+kubectl exec -it <pod-name> -- /bin/bash	Access shell inside Pod container
