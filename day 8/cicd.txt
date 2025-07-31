@@ -1,0 +1,154 @@
+What is CI/CD?
+Term	Meaning
+CI	Continuous Integration – Automatically testing code when developers push it
+CD	Continuous Delivery/Deployment – Automatically releasing code to production or staging environments
+
+🎯 Goal of CI/CD
+Automate everything from:
+
+Code change ➜ Testing ➜ Build ➜ Deployment ➜ Monitoring
+
+🏗️ Why CI/CD is Important
+Without CI/CD	With CI/CD
+Manual testing and deployment	Automated testing and deployment
+High risk of bugs in production	Bugs caught early through automated tests
+Slow delivery of features	Faster and safer delivery of features
+
+🧱 Components of a CI/CD Pipeline
+Component	Purpose
+Source Control	Where code is stored (e.g., GitHub, GitLab)
+Build Server	Runs automated scripts (e.g., GitHub Actions, Jenkins)
+Test Suite	Verifies code correctness (unit, integration tests)
+Artifact Repo	Stores build outputs (e.g., DockerHub, Nexus)
+Deployment Tool	Deploys code to staging/production (e.g., Kubernetes)
+Monitoring Tool	Watches live application (e.g., Prometheus, Grafana)
+
+⚙️ CI/CD Pipeline Phases with Example
+1. Source (Trigger)
+Developer pushes code to GitHub.
+
+This triggers the CI/CD pipeline.
+
+2. Build
+Code is compiled or bundled.
+
+Example: Run npm run build, mvn package, or docker build.
+
+3. Test
+Automated tests run to validate code.
+
+Types: Unit, Integration, UI tests.
+
+Example: npm test or pytest.
+
+4. Artifact Packaging (optional)
+Save build outputs: .jar, .zip, Docker images.
+
+Stored in a central repo like DockerHub.
+
+5. Deploy
+Code is deployed automatically or manually.
+
+To staging (test server) or production (live server).
+
+6. Monitor
+Track app health: CPU, memory, errors, logs.
+
+Tools: Prometheus, Grafana, Datadog.
+
+🧪 CI/CD Real Example (Node.js App)
+yaml
+Copy code
+# .github/workflows/ci-cd.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Build Project
+      run: npm run build
+
+    - name: Deploy to Server
+      run: scp -r ./build user@your-server:/var/www/html
+🔄 Types of CD (Continuous Delivery vs Continuous Deployment)
+Type	What it Means
+Continuous Delivery	Code is ready for deployment but requires manual approval
+Continuous Deployment	Code is automatically deployed without human intervention
+
+⚒️ Popular CI/CD Tools
+Type	Tools
+CI/CD	GitHub Actions, GitLab CI, Jenkins, CircleCI
+Build	Docker, Maven, Gradle
+Deploy	Kubernetes, AWS CodeDeploy, Ansible
+Monitor	Prometheus, Grafana, New Relic
+
+🔐 CI/CD Security Best Practices
+Practice	Why
+Use secrets for passwords	Avoid exposing API keys/passwords
+Use least privilege	Restrict deployment access
+Scan for vulnerabilities	Detect security issues early
+
+🏃 How to Build a CI/CD Pipeline Step-by-Step
+Step 1: Source Control
+Push code to GitHub.
+
+Step 2: Create Workflow (GitHub Actions example)
+Add .github/workflows/ci.yml
+
+Step 3: Add Steps
+Checkout code.
+
+Install dependencies.
+
+Run tests.
+
+Build app.
+
+Deploy to server/cloud.
+
+Step 4: Configure Secrets (for deployment)
+In GitHub repo settings > Secrets.
+
+Step 5: Monitor App
+Use logs and monitoring tools for health checks.
+
+🖼️ CI/CD Pipeline Diagram
+mathematica
+Copy code
+Developer Pushes Code
+        ↓
+Trigger CI/CD Workflow
+        ↓
+Build App → Run Tests → Package
+        ↓
+Deploy to Staging → Approval (optional) → Deploy to Prod
+        ↓
+Monitor & Alert
+🧠 Key Terms Simplified
+Term	Layman Explanation
+Pipeline	A set of automated steps like a factory line
+Job	One task (e.g., build, test) in the pipeline
+Runner	The computer that executes jobs
+Artifact	Output of a build (e.g., zip, Docker image)
+Trigger	Event that starts the pipeline
+
+✅ CI/CD Benefits Summary
+Benefit	Description
+Faster Delivery	Ship features quickly
+Fewer Bugs	Catch issues early through automation
+Safer Releases	Repeatable and predictable deployment
+Developer Focus	Automates boring tasks; developers focus on code
