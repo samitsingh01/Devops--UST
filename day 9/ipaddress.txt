@@ -1,0 +1,119 @@
+What is an IP Address?
+📌 Definition:
+An IP (Internet Protocol) address is like your home address on the internet. It allows devices (computers, phones, servers) to find each other and communicate.
+
+🧩 Types of IP Address:
+Type	Example	Use
+IPv4	192.168.1.1	Most common; 4 numbers (0-255) separated by dots
+IPv6	2001:db8::1	Newer; for many more devices (longer format)
+Public IP	13.58.120.33	Accessible over the internet
+Private IP	192.168.1.10	Used within home or office networks only
+Static IP	Fixed address	Does not change (useful for servers)
+Dynamic IP	Changes often	Assigned by ISPs, usually to home users
+
+🛠️ How Devices Use IP:
+Your PC: 192.168.1.2 (private IP)
+
+Router: 192.168.1.1 (gateway IP)
+
+Server on AWS: 13.58.120.33 (public IP)
+
+📏 2. What is a Subnet?
+📌 Definition:
+A subnet (sub-network) is a smaller network inside a bigger network. It helps organize and manage IP addresses.
+
+🎯 Why Subnet?
+Improves network efficiency.
+
+Increases security (separate sensitive devices).
+
+Controls traffic flow.
+
+📊 Subnet Example:
+Item	Example
+Subnet Address	192.168.1.0/24
+Subnet Mask	255.255.255.0
+Usable IP Range	192.168.1.1 to 192.168.1.254
+Total IPs	256 (254 usable)
+
+🎯 What does /24 mean?
+It's CIDR notation.
+
+/24 means first 24 bits are for network, 8 bits for devices.
+
+Equivalent to 255.255.255.0 subnet mask.
+
+📦 Subnetting in Real Life:
+A company network has subnets for:
+
+Office PCs
+
+Servers
+
+Printers
+
+Guest Wi-Fi
+
+Each group gets a separate subnet for better security and management.
+
+☁️ 3. What is AWS (Amazon Web Services)?
+📌 Definition:
+AWS is a cloud computing platform by Amazon that provides on-demand IT services like:
+
+Servers (EC2)
+
+Storage (S3)
+
+Databases (RDS)
+
+Networking (VPC)
+
+🧰 Key AWS Services:
+Service	What it Does
+EC2	Virtual servers (you control OS, IP, etc.)
+S3	File storage (images, videos, backups)
+RDS	Managed databases (MySQL, PostgreSQL)
+VPC	Virtual network (create subnets, assign IPs)
+Lambda	Serverless functions (run code without servers)
+
+🌐 AWS IP Example:
+You launch an EC2 instance.
+
+AWS gives it:
+
+Private IP (for inside AWS network)
+
+Public IP (for internet access)
+
+🛠️ AWS VPC and Subnet Example:
+Item	Example
+VPC	10.0.0.0/16 (big network)
+Subnet 1	10.0.1.0/24 (web servers)
+Subnet 2	10.0.2.0/24 (databases)
+Internet Gateway	Gives public internet access
+
+🗂️ IP + Subnet + AWS in Action:
+You create a VPC (like a private office network in the cloud).
+
+Divide it into subnets:
+
+One for public servers (web apps)
+
+One for private servers (databases)
+
+Assign IP addresses to each server.
+
+Use security groups and routing to control access.
+
+🔐 Security Groups (Bonus)
+Like firewalls in AWS.
+
+Control which IPs can access your server (e.g., only allow port 80 for web).
+
+🧠 Summary Table
+Term	Simple Meaning
+IP Address	Unique ID for a device on a network
+Subnet	Subdivision of network for better management
+AWS	Cloud service platform by Amazon
+VPC	Virtual private network in AWS
+EC2	Virtual server in AWS
