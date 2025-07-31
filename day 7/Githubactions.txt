@@ -1,0 +1,199 @@
+What is GitHub Actions?
+GitHub Actions is a CI/CD (Continuous Integration and Continuous Deployment) tool built into GitHub. It allows you to automate tasks like testing code, building projects, and deploying applications when events happen in your GitHub repository (e.g., a push, pull request, etc.).
+
+📂 1. Folder Structure and Key Files
+GitHub Actions are defined in YAML files inside the .github/workflows/ directory of your repository.
+
+Example:
+
+pgsql
+Copy code
+your-repo/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+└── index.html
+⚙️ 2. Basic Workflow Structure (YAML)
+A workflow file (deploy.yml) has this basic structure:
+
+yaml
+Copy code
+name: Deploy Website  # Name of the workflow
+
+on:                   # Triggering Events
+  push:
+    branches: [main]  # Trigger when pushing to 'main' branch
+
+jobs:
+  deploy:             # Job name
+    runs-on: ubuntu-latest  # Virtual machine
+
+    steps:            # List of steps
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Deploy to Server
+      run: echo "Deploying website..."
+📅 3. Trigger Events (on)
+Trigger Type	Example	Description
+push	on: push: branches: [main]	Run on code push to main branch
+pull_request	on: pull_request	Run when a pull request is created/updated
+schedule	on: schedule: cron: "0 0 * * *"	Run at scheduled times (cron jobs)
+workflow_dispatch	on: workflow_dispatch	Manual trigger from GitHub UI
+
+💻 4. Runners (runs-on)
+GitHub provides virtual machines (called "runners") to run your jobs.
+
+Runner OS	Description
+ubuntu-latest	Latest Ubuntu Linux
+windows-latest	Latest Windows Server
+macos-latest	Latest macOS
+
+🔨 5. Steps: Using Actions and Running Commands
+a. Built-in Actions
+Checkout code:
+
+yaml
+Copy code
+- uses: actions/checkout@v3
+Set up Node.js:
+
+yaml
+Copy code
+- uses: actions/setup-node@v3
+  with:
+    node-version: 18
+b. Run Shell Commands
+yaml
+Copy code
+- name: Install Dependencies
+  run: npm install
+
+- name: Run Tests
+  run: npm test
+📦 6. Marketplace for Actions
+You can use pre-built actions from the GitHub Marketplace:
+
+Visit: https://github.com/marketplace?type=actions
+
+Example:
+
+yaml
+Copy code
+- uses: peaceiris/actions-gh-pages@v3
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./dist
+🔐 7. Secrets (for passwords, API keys)
+Store sensitive data in Repository Settings > Secrets.
+
+Using a secret in workflow:
+yaml
+Copy code
+- name: Use Secret
+  run: echo "${{ secrets.MY_SECRET }}"
+🧪 8. Example: Full Workflow to Deploy Website on Push
+yaml
+Copy code
+name: Deploy Website
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build Site
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+📝 9. GitHub Actions Workflow Step-by-Step Setup
+Step 1: Create Repo and Code
+Create a GitHub repo.
+
+Add code (index.html, etc.)
+
+Step 2: Create Workflow File
+Create folder: .github/workflows/
+
+Inside, create a file: deploy.yml
+
+Step 3: Push Code to GitHub
+bash
+Copy code
+git add .
+git commit -m "Add website and GitHub Actions"
+git push origin main
+Step 4: View Workflow
+Go to your repo on GitHub.
+
+Click Actions tab to see workflow running.
+
+🧠 10. Advanced Concepts
+Feature	Purpose
+Matrix Builds	Run job in parallel on multiple environments
+Job Dependencies	Define order of jobs using needs
+Caching	Speed up workflows by caching dependencies
+Artifacts	Upload/download files between jobs
+Environment Variables	Define with env: or in run: commands
+
+🛠️ 11. Example: Matrix Build
+yaml
+Copy code
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16, 18]
+    steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+    - run: npm install && npm test
+📤 12. Deploy Anywhere (GitHub Pages, AWS, FTP)
+GitHub Pages Deploy
+yaml
+Copy code
+- uses: peaceiris/actions-gh-pages@v3
+Deploy to AWS S3
+yaml
+Copy code
+- uses: jakejarvis/s3-sync-action@master
+  with:
+    args: --acl public-read --delete
+  env:
+    AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+💡 Best Practices
+Practice	Why Important
+Use secrets	Never hard-code passwords/API keys
+Keep workflows modular	Easier maintenance and debugging
+Add caching	Speed up builds
+Use status badges	Show build status in README
+Use workflow_dispatch for manual deploys	Control over CI/CD
+
+🧪 13. Debugging Workflows
+View logs in Actions tab.
+
+Use run: echo "debug info" for custom logs.
+
+Enable step debug:
+
+yaml
+Copy code
+env:
+  ACTIONS_STEP_DEBUG: true
